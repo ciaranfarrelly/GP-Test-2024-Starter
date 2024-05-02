@@ -1,11 +1,18 @@
-[gd_scene load_steps=2 format=3 uid="uid://kbh1xffaamfy"]
+[gd_scene load_steps=5 format=3 uid="uid://kbh1xffaamfy"]
 
 [ext_resource type="Script" path="res://GUI.gd" id="1_ggxoy"]
+[ext_resource type="Texture2D" uid="uid://b501pckd5ma2u" path="res://icon.svg" id="2_lcb4b"]
+[ext_resource type="PackedScene" uid="uid://c0kbk0t4qlefg" path="res://logo_mover.tscn" id="2_pqnhd"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dgstj"]
+size = Vector2(1178, 121)
 
 [node name="Node2D" type="Node2D"]
 
-[node name="GUI" type="CanvasLayer" parent="."]
+[node name="GUI" type="CanvasLayer" parent="." node_paths=PackedStringArray("spawn")]
 script = ExtResource("1_ggxoy")
+item = ExtResource("2_pqnhd")
+spawn = NodePath("../Foreground/spawn_Point")
 
 [node name="Slider" type="HSlider" parent="GUI"]
 offset_left = 76.0
@@ -37,14 +44,36 @@ offset_right = 273.0
 offset_bottom = 36.0
 text = "1"
 
-[node name="CanvasLayer2" type="CanvasLayer" parent="."]
+[node name="Logo" type="Sprite2D" parent="GUI"]
+position = Vector2(550, 302)
+texture = ExtResource("2_lcb4b")
+
+[node name="Background" type="CanvasLayer" parent="."]
 layer = -1
 
-[node name="ColorRect" type="ColorRect" parent="CanvasLayer2"]
-visible = false
+[node name="BackgroundColor" type="ColorRect" parent="Background"]
 offset_left = -8.0
 offset_right = 1153.0
 offset_bottom = 644.0
 color = Color(0, 0, 0, 1)
 
+[node name="Foreground" type="CanvasLayer" parent="."]
+layer = 0
+
+[node name="spawn_Point" type="Node2D" parent="Foreground"]
+position = Vector2(549, 138)
+
+[node name="Ground" type="StaticBody2D" parent="Foreground"]
+position = Vector2(-4, 571)
+
+[node name="ColorRect" type="ColorRect" parent="Foreground/Ground"]
+offset_right = 1158.0
+offset_bottom = 112.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Foreground/Ground"]
+position = Vector2(579, 60.5)
+shape = SubResource("RectangleShape2D_dgstj")
+
 [connection signal="value_changed" from="GUI/Slider" to="GUI" method="_on_slider_value_changed"]
+[connection signal="button_down" from="GUI/Start" to="GUI" method="_on_start_button_down"]
+[connection signal="input_event" from="Foreground/Ground" to="GUI" method="_on_static_body_2d_input_event"]

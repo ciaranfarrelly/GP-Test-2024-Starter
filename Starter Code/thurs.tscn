@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://thurs.gd" id="1_usiot"]
 [ext_resource type="AudioStream" uid="uid://bqfqrmxdqdu3t" path="res://samples/tom-808.wav" id="2_bmwih"]
-[ext_resource type="AudioStream" uid="uid://c04lisw8kmfs7" path="res://Samples/tom-short.wav" id="3_g2q87"]
+[ext_resource type="AudioStream" uid="uid://c04lisw8kmfs7" path="res://samples/tom-short.wav" id="3_g2q87"]
 
 [node name="Node2D" type="Node2D" node_paths=PackedStringArray("s")]
 script = ExtResource("1_usiot")
